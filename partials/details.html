@@ -1,0 +1,125 @@
+ <section class="phone-main-details" ng-model="phones">
+
+<!-- //// Loading Icon -->
+<p class="loaderIcon" ng-hide="dataLoaded">
+    <i class="fa fa-spinner fa-spin"></i>
+</p>
+
+<!-- //// Desktop Header -->
+<h1 class="desktop">{{phones[whichPhone].extraDescription}}</h1>
+
+<!-- //// Details Area -->
+<div class="phone-details-top" ng-show="dataLoaded">
+
+	<!-- //// Phone image Area - Linked to lightbox -->
+	<a class="phone-image sm-half" href="#/details/{{phones[whichPhone].offercode}}">
+    	<img ng-src="http://vodafone.ie/{{phones[whichPhone].imageFront}}" alt="{{phones[whichPhone].description}}">
+    </a>	
+
+    <div class="phone-details sm-half">
+		<h2 class="mobile">{{phones[whichPhone].description}}</h2>     
+		
+		<!-- //// Price Area -->
+		<h3>
+			<small>From</small>
+			<span ng-show="phones[whichPhone].priceFrom == 0">Free</span>
+			<span ng-show="phones[whichPhone].priceFrom !== 0">{{phones[whichPhone].priceFrom | currency : "€"}}</span>
+		</h3>
+		
+		<!-- //// 4G and not in stock Area -->
+		<div class="not-in" ng-show="phones[whichPhone].outOfStock">
+			Phone is not in stock
+		</div>
+		<div class="Enabled4g" ng-show="phones[whichPhone].enabled4G">
+			4G Enabled
+		</div>
+
+		<!-- //// Colors Area -->
+		<ul class="colors">
+	         <li ng-repeat="color in phones[whichPhone].colors">
+	         	<div class="cp-{{color | lowercase}}">
+	         		{{color}}
+	         	</div> 
+	         </li>
+	    </ul>
+
+		<!-- //// Review Area -->
+		<p id="reviews">Average Customers Reviews</p>
+		<div ng-repeat="start in range(phones[whichPhone].rating | number:0)" class="rating-box">
+			<i class="fa fa-star" aria-hidden="true"></i>
+		</div>
+
+	</div>
+
+	<!-- //// Overview & Features Area -->	
+	<article class="details-area">
+		<!-- //// Overview Area -->
+		<div class="area overview">
+			<h2>
+				<a href="#">Overview 
+					<i class="fa fa-chevron-down" aria-hidden="true"></i> 
+					<i class="fa fa-chevron-up" aria-hidden="true"></i>
+				</a>
+			</h2>
+			<div>
+				<p>{{phones[whichPhone].productDescription}}</p>
+			</div>
+		</div>
+		<!-- //// Features Area -->
+		<div class="area">
+			<h2>
+				<a href="#">Features 
+					<i class="fa fa-chevron-down" aria-hidden="true"></i> 
+					<i class="fa fa-chevron-up" aria-hidden="true"></i>
+				</a>
+			</h2>
+			<div>
+				<ul class="features">
+					<li ng-repeat="(key, value) in phones[whichPhone].filterfeatures"> 
+						<span class="key">{{key}}</span> 
+						<span class="tick" ng-show="{{value}}">
+							<i class="fa fa-check" aria-hidden="true"></i>
+						</span>
+						<span class="tick" ng-hide="{{value}}">
+							<i class="fa fa-times" aria-hidden="true"></i>
+						</span>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</article>
+
+<!-- //// Light Box -->
+
+<div id="lightbox">
+	<a class="close" href="#"><i class="fa fa-times" aria-hidden="true"></i></a>
+
+	<div class="main">
+		<img ng-src="http://vodafone.ie/{{phones[whichPhone].imageFront}}" alt="{{phones[whichPhone].description}}">
+	</div>
+
+	<ul>
+		<li>
+			<a href="#">
+				<img ng-src="http://vodafone.ie/{{phones[whichPhone].imageFront}}" alt="{{phones[whichPhone].description}}">
+			</a>
+		</li>
+		<li>
+			<a href="#">
+				<img ng-src="http://vodafone.ie/{{phones[whichPhone].imageBack}}" alt="{{phones[whichPhone].description}}">
+			</a>
+		</li>
+
+	</ul>		
+</div> 
+
+	</section>
+
+
+
+
+
+ </div>
+
+<script src="js/jquery-latest.min.js"></script>
+<script src="js/scripts.js"></script>

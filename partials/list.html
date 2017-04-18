@@ -1,0 +1,75 @@
+<h1>Phone Gallery</h1>
+<!-- //// Filters Area -->
+<div class="filters">
+<a class="filterBtn" href="#">Filter 
+	<i class="fa fa-chevron-down" aria-hidden="true"></i> 
+	<i class="fa fa-chevron-up" aria-hidden="true"></i>
+</a>
+<!-- //// Manufactures Checkboxs -->
+<div class="manufactures">
+	<div class="manufacture" ng-repeat=" (key, value) in phones | groupBy:'manufacturer'">
+		<input type="checkbox" ng-model="query"/><b>{{ key }}</b>
+	</div>
+</div>	
+<!-- //// Sort Area -->
+<label>Sort by:
+			<select ng-init="orderProd = selected" ng-model="orderProd">
+				<option value="" selected>Select</option>
+				<option value="priceFrom">Price</option>
+				<option value="manufacture">Brand</option>
+				<option value="rating">Rating</option>
+			</select>
+		</label>
+
+<!-- //// Input field to change how many phones you see -->
+ <!--How Many: <input class="quantity" ng-model="quantity"><br>-->
+
+</div>
+
+<!-- //// Loading icon -->
+<p class="loaderIcon" ng-hide="dataLoaded">
+    <i class="fa fa-spinner fa-spin"></i>
+</p>
+
+<ul ng-show="dataLoaded">
+<!-- //// List items area -->	
+<li class="phone-list-item" ng-repeat="phone in phones | filter:query | orderBy: orderProd | limitTo: quantity "><!--|  | limitTo:quantity-->
+
+    <a class="phone-image sm-half" href="#/details/{{phone.offercode}}">
+    	<img ng-src="http://vodafone.ie/{{phone.imageFront}}" alt="{{phone.description}}">
+    </a>	
+    <div class="phone-details sm-half">
+		<h2>{{phone.description}}</h2>     
+		<h3><small>From</small>
+		<span ng-show="phone.priceFrom == 0">Free</span>
+		<span ng-show="phone.priceFrom !== 0">{{phone.priceFrom | currency : "€"}}</span></h3>
+		<div class="not-in" ng-show="phone.outOfStock">
+			Phone is not in stock
+		</div>
+
+		<div class="Enabled4g" ng-show="phone.enabled4G">
+			4G Enabled
+		</div>
+		<ul class="colors">
+	         <li ng-repeat="color in phone.colors"> 
+	           {{color}} 
+	         </li>
+	    </ul>
+	</div>
+     <a class="phone-full-details" href="#/details/{{phone.offercode}}">Full Details</a>
+</li><!--  ng-click="select(phone)" -->
+
+</ul>
+
+<a id="scrollTop" href="#">
+	<i class="fa fa-chevron-up" aria-hidden="true"></i>
+</a>
+<a id="showFilters" href="#">
+	<i class="fa fa-list" aria-hidden="true"></i>
+	<i class="fa fa-times" aria-hidden="true"></i>
+</a>
+
+
+<button class="loadMore" ng-click='loadMore()'>Load More</button>
+<script src="js/jquery-latest.min.js"></script>
+<script src="js/scripts.js"></script>
